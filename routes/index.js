@@ -39,4 +39,7 @@ routes.post('/dashboard/addProgram/:id', Controller.addProgram)
 // ? delete weight
 routes.get('/dashboard/delete/:user/:id', Controller.deleteWeight)
 
+// ? logout
+routes.get('/logout', Controller.logout)
+
 module.exports = routes

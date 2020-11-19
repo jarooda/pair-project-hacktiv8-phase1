@@ -198,6 +198,16 @@ class Controller {
             .then(data => res.redirect(`/dashboard/edit`))
             .catch(err => res.send(err.message))
     }
+
+    static logout(req, res) {
+        req.session.destroy(err => {
+            if (err) {
+                res.send(err)
+            } else {
+                res.redirect('/')
+            }
+        })
+    }
 }
 
 module.exports = Controller
