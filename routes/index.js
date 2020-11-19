@@ -1,11 +1,42 @@
-const route = require('express').Router();
-const UserController = require('../controllers/userController')
+const routes = require('express').Router()
+const Controller = require('../controllers/controller')
 
+routes.get('/', Controller.home)
 
-route.get('/register', UserController.register)
-route.post('/register', UserController.registerPost)
+routes.get('/register', Controller.register)
+routes.post('/register', Controller.registerPost)
 
-route.get('/login', UserController.loginGet)
-route.post('/login', UserController.loginPost)
+routes.get('/login', Controller.loginGet)
+routes.post('/login', Controller.loginPost)
 
-module.exports = route
+let checkSession = (req, res, next) => {
+    if (req.session.username) {
+        next()
+    } else {
+        res.send(`Member Only!`)
+    }
+}
+
+routes.use(checkSession)
+// ? menampilkan dahsboard
+routes.get('/dashboard/', Controller.showDashboard)
+
+// ? menampilkan movie
+routes.get('/showMovie/:id', Controller.showMovie)
+
+// ? post saat menambahkan berat badan baru
+routes.post('/dashboard', Controller.addWeight)
+
+// ? menampilkan edit user
+routes.get('/dashboard/edit', Controller.formEditUser)
+
+// ? post edit user
+routes.post('/dashboard/edit/:id', Controller.editUser)
+
+// ? add program
+routes.post('/dashboard/addProgram/:id', Controller.addProgram)
+
+// ? delete weight
+routes.get('/dashboard/delete/:user/:id', Controller.deleteWeight)
+
+module.exports = routes
