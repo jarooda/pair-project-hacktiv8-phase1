@@ -5,6 +5,9 @@
 > ## Buat Model
 
 ### User
+- username (string)
+- password (string)
+- membership (string)
 - first_name (string)
 - last_name (string)
 - gender (string)
@@ -17,11 +20,11 @@
 ### Workout
 - name (string)
 - video (string)
+- picture (string)
 
 ### UserWorkout (conjuction table)
 - UserId (integer) (fk)
 - WorkoutId (integer) (fk)
-- progress (???)
 
 ### Weight
 - weight (integer)
