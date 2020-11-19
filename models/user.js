@@ -53,16 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     membership: DataTypes.STRING,
     first_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: {
-          msg: 'Please enter your firstname'
-        },
-        notNull: {
-          msg: 'Please enter your firstname'
-        }
-      }
+      type: DataTypes.STRING
     },
     last_name: DataTypes.STRING,
     gender: {
@@ -123,9 +114,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     current_weight: {
       type: DataTypes.INTEGER,
-      allowNull:false,
-      validate: {
-        allowNull: false,
+      allowNull: false,
         validate: {
           notEmpty: {
             msg: 'Weight required'
@@ -138,7 +127,6 @@ module.exports = (sequelize, DataTypes) => {
           args: 1,
           msg: `Weight cannot below 1kg`
         }
-      }
     },
     activities_level: DataTypes.STRING,
     goal: DataTypes.STRING
@@ -146,5 +134,9 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+
+  User.beforeCreate((instance, option) => {
+    instance.membership = 'Standard'
+  })
   return User;
 };

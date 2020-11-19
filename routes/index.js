@@ -3,6 +3,12 @@ const Controller = require('../controllers/controller')
 
 routes.get('/', (req, res) => res.send('home'))
 
+routes.get('/register', Controller.register)
+routes.post('/register', Controller.registerPost)
+
+routes.get('/login', Controller.loginGet)
+routes.post('/login', Controller.loginPost)
+
 // ? menampilkan dahsboard
 routes.get('/dashboard/:id', Controller.showDashboard)
 
