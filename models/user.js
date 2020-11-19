@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -139,7 +140,11 @@ module.exports = (sequelize, DataTypes) => {
     if (!instance.last_name || instance.last_name.trim() == '') {
       instance.last_name = instance.first_name
     }
+    // make membership
     instance.membership = 'Standard'
+    // hash password
+    let hashedPass = bcrypt.hashSync(instance.password, 10);
+    instance.password = hashedPass
   })
 
   User.beforeUpdate((instance, option) => {

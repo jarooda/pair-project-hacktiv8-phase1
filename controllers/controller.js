@@ -1,5 +1,6 @@
 const {User, Weight, Workout, UserWorkout} = require('../models')
 const CheckFitness = require('../helpers/fitnes-npm')
+const bcrypt = require('bcryptjs');
 
 class Controller {
     static home(req, res) {
@@ -49,8 +50,8 @@ class Controller {
         const password = req.body.password
         User.findOne({ where: { username: username}})
         .then(data => {
-            console.log(data);
-            if (data.password == password) {
+            //bcrypt.compareSync("B4c0/\/", hash)
+            if (bcrypt.compareSync(password, data.password)) {
                 req.session.username = data.username
                 res.redirect('/dashboard')
                 // res.send(data)
@@ -155,7 +156,6 @@ class Controller {
     static editUser(req, res) {
         const username = req.session.username
         const input = {
-            password: req.body.password,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
             gender: req.body.gender,

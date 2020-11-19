@@ -10,10 +10,7 @@
     <div>
         <h3>Edit User <%= user.username %></h3>
         <form action="/dashboard/edit/<%= user.id %>" method="post">
-            <label>Password</label>
-            <input type="password" name="password" id="" value="<%= user.password %>">
-
-            <br><br><label>First Name</label>
+            <label>First Name</label>
             <input type="text" name="first_name" id="" value="<%= user.first_name %>">
 
             <br><br><label>Last Name</label>
