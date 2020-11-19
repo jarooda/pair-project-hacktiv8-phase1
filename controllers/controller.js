@@ -33,31 +33,41 @@ class Controller {
                 return Weight.create(dataWeight)
             })
             .then(data => {
-                res.redirect('/')
+                res.redirect('/login')
             })
             .catch(err => {
                 res.send(err.message)
             })
     }
+
     static loginGet(req, res) {
         res.render('login')
     }
-    static loginPost(req, res) {
-        User.findOne({ where: { username: req.body.username}})
-        .then(data => {
-            req.session.username = data.username 
-            res.redirect('/')
 
+    static loginPost(req, res) {
+        const username = req.body.username
+        const password = req.body.password
+        User.findOne({ where: { username: username}})
+        .then(data => {
+            console.log(data);
+            if (data.password == password) {
+                req.session.username = data.username
+                res.redirect('/dashboard')
+                // res.send(data)
+            } else {
+                res.send('Username atau password salah')
+            }
         })
+        .catch(err => res.send(err.message))
     }
 
     static showDashboard(req, res) {
-        const id = req.params.id
+        const username = req.session.username
         const label = []
         const dataset = []
         User.findOne({
             where: {
-                id
+                username
             },
             include: [Workout, 
                 {
@@ -75,32 +85,37 @@ class Controller {
                 // res.send(data)
                 res.render('dashboard', {data, dataset, label, CheckFitness, User})
             })
-            .catch(err => res.send(err))
+            .catch(err => res.send(err.message))
     }
 
     static addWeight(req, res) {
-        const id = req.params.id
+        const username = req.session.username
         const inputUser = {
             current_weight: req.body.newWeight
         }
-        const inputWeight = {
-            weight: req.body.newWeight,
-            UserId: id
-        }
-        User.update(inputUser, {
-            where: {
-                id
-            }
-        })
+        let id
+        User.findOne({where: {username}})
+         .then(data => {
+             id = data.id
+             return User.update(inputUser, {
+                where: {
+                    id
+                }
+            })
+         })
             .then(data => {
+                const inputWeight = {
+                    weight: req.body.newWeight,
+                    UserId: id
+                }
                 return Weight.create(inputWeight, {
                     where: {
                         id
                     }
                 })
             })
-            .then(data => res.redirect(`/dashboard/${id}`))
-            .catch(err => res.send(err))
+            .then(data => res.redirect(`/dashboard`))
+            .catch(err => res.send(err.message))
     }
 
     static showMovie(req, res) {
@@ -112,15 +127,15 @@ class Controller {
         })
             // .then(data => res.send(data))
             .then(data => res.render('movie', {data}))
-            .catch(err => res.send(err))
+            .catch(err => res.send(err.message))
     }
 
     static formEditUser(req, res) {
-        const id = req.params.id
+        const username = req.session.username
         let user
         User.findOne({
             where: {
-                id
+                username
             },
             include: [Workout, 
                 {
@@ -134,13 +149,12 @@ class Controller {
                 return Workout.findAll()
             })
             .then(workout => res.render('edit-user', {workout, user}))
-            .catch(err => res.send(err))
+            .catch(err => res.send(err.message))
     }
 
     static editUser(req, res) {
-        const id = req.params.id
+        const username = req.session.username
         const input = {
-            username: req.body.username,
             password: req.body.password,
             first_name: req.body.first_name,
             last_name: req.body.last_name,
@@ -154,10 +168,11 @@ class Controller {
 
         User.update(input, {
             where: {
-                id
-            }
+                username
+            },
+            individualHooks: true
         })
-            .then(data => res.redirect(`/dashboard/${id}`))
+            .then(data => res.redirect(`/dashboard`))
             .catch(err => res.send(err.message))
     }
 
@@ -170,8 +185,8 @@ class Controller {
         }
 
         UserWorkout.create(input)
-            .then(data => res.redirect(`/dashboard/${id}`))
-            .catch(err => res.send(err))
+            .then(data => res.redirect(`/dashboard`))
+            .catch(err => res.send(err.message))
     }
 
     static deleteWeight(req, res) {
@@ -180,8 +195,8 @@ class Controller {
         Weight.destroy({
             where: {id}
         })
-            .then(data => res.redirect(`/dashboard/edit/${userId}`))
-            .catch(err => res.send(err))
+            .then(data => res.redirect(`/dashboard/edit`))
+            .catch(err => res.send(err.message))
     }
 }
 

@@ -136,7 +136,16 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.beforeCreate((instance, option) => {
+    if (!instance.last_name || instance.last_name.trim() == '') {
+      instance.last_name = instance.first_name
+    }
     instance.membership = 'Standard'
+  })
+
+  User.beforeUpdate((instance, option) => {
+    if (!instance.last_name || instance.last_name.trim() == '') {
+      instance.last_name = instance.first_name
+    }
   })
   return User;
 };

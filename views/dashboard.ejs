@@ -12,7 +12,7 @@
     </div>
     <div>
         <h4>Your Account Summary:</h4>
-        <a href="/dashboard/edit/<%= data.id %>">Want to edit your account?</a>
+        <a href="/dashboard/edit">Want to edit your account?</a>
         <table border="1" style="text-align: center;">
             <tr>
                 <th>
@@ -100,7 +100,7 @@
                 </td>
                 <td>
                     <div>
-                        <form action="/dashboard/<%= data.id %>" method="post">
+                        <form action="/dashboard" method="POST">
                             <input type="number" name="newWeight" id="" placeholder="Insert New Weight">
                             <input type="submit" value="Submit">
                         </form>
