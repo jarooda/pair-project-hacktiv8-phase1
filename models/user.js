@@ -121,11 +121,11 @@ module.exports = (sequelize, DataTypes) => {
           },
           notNull: {
             msg: 'Weight required'
+          },
+          min: {
+            args: 1,
+            msg: `Weight cannot below 1kg`
           }
-        },
-        min: {
-          args: 1,
-          msg: `Weight cannot below 1kg`
         }
     },
     activities_level: DataTypes.STRING,
