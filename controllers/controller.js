@@ -109,7 +109,7 @@ class Controller {
             }
         })
             .then(data => res.redirect(`/dashboard/${id}`))
-            .catch(err => res.send(err))
+            .catch(err => res.send(err.message))
     }
 
     static addProgram(req, res) {

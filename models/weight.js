@@ -15,7 +15,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Weight.init({
-    weight: DataTypes.INTEGER
+    weight: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      validate: {
+        notNull: {
+          msg: `Weight Required`
+        },
+        min: {
+          args: 1,
+          msg: `Weight cannot below 1kg`
+        }
+      }
+    },
+    UserId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Weight',

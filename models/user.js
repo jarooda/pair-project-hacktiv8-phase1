@@ -27,16 +27,119 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   User.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter your username'
+        },
+        notNull: {
+          msg: 'Please enter your username'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter your password'
+        },
+        notNull: {
+          msg: 'Please enter your password'
+        }
+      }
+    },
     membership: DataTypes.STRING,
-    first_name: DataTypes.STRING,
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter your firstname'
+        },
+        notNull: {
+          msg: 'Please enter your firstname'
+        }
+      }
+    },
     last_name: DataTypes.STRING,
-    gender: DataTypes.STRING,
-    birth_year: DataTypes.INTEGER,
-    email: DataTypes.STRING,
-    height: DataTypes.INTEGER,
-    current_weight: DataTypes.INTEGER,
+    gender: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter your gender'
+        },
+        notNull: {
+          msg: 'Please enter your gender'
+        }
+      }
+    },
+    birth_year: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      validate: {
+        notEmpty: {
+          msg: 'Birth year required'
+        },
+        notNull: {
+          msg: 'Birth year required'
+        },
+        len: {
+          args: [4,4],
+          msg: `Year Invalid`
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Please enter your email'
+        },
+        notNull: {
+          msg: 'Please enter your email'
+        }
+      }
+    },
+    height: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'Height Required'
+        },
+        notNull: {
+          msg: 'Height Required'
+        },
+        min: {
+          args: 1,
+          msg: `Height cannot below 1kg`
+        }
+      }
+    },
+    current_weight: {
+      type: DataTypes.INTEGER,
+      allowNull:false,
+      validate: {
+        allowNull: false,
+        validate: {
+          notEmpty: {
+            msg: 'Weight required'
+          },
+          notNull: {
+            msg: 'Weight required'
+          }
+        },
+        min: {
+          args: 1,
+          msg: `Weight cannot below 1kg`
+        }
+      }
+    },
     activities_level: DataTypes.STRING,
     goal: DataTypes.STRING
   }, {
