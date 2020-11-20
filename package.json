@@ -1,0 +1,32 @@
+{
+  "name": "pair-project-hacktiv8-phase1",
+  "version": "1.0.0",
+  "description": "# Step By Step Pair Project Fitness Web App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarooda/pair-project-hacktiv8-phase1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarooda/pair-project-hacktiv8-phase1/issues"
+  },
+  "homepage": "https://github.com/jarooda/pair-project-hacktiv8-phase1#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "fitness-health-calculations": "^1.0.2",
+    "pg": "^8.5.1",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}

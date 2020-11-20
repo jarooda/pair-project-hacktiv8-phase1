@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/dashboard">Dashboard</a>
+    <div>
+        <h3>Edit User <%= user.username %></h3>
+        <form action="/dashboard/edit/<%= user.id %>" method="post">
+            <label>First Name</label>
+            <input type="text" name="first_name" id="" value="<%= user.first_name %>">
+
+            <br><br><label>Last Name</label>
+            <input type="text" name="last_name" id="" value="<%= user.last_name %>">
+
+            <br><br><label>Gender</label>
+            <label for=""><input type="radio" name="gender" value="male" id="" <%= user.gender == 'male' ? 'checked' : '' %>>Male</label>
+
+            <label for=""><input type="radio" name="gender" value="female" id="" <%= user.gender == 'female' ? 'checked' : '' %> >Female</label>
+
+            <br><br><label>Email</label>
+            <input type="email" name="email" id="" value="<%= user.email %>">
+
+            <br><br><label>Birth Year</label>
+            <input type="number" name="birth_year" id="" value="<%= user.birth_year %>">
+
+            <br><br><label>Height</label>
+            <input type="number" name="height" id="" value="<%= user.height %>">
+
+            <br><br><label>Activity Level</label>
+            <select name="activities_level" id="">
+                <option value="sedentary" <%= user.activities_level == 'sedentary' ? 'selected' : '' %> >sedentary</option>
+                <option value="light" <%= user.activities_level == 'light' ? 'selected' : '' %>>light</option>
+                <option value="moderate" <%= user.activities_level == 'moderate' ? 'selected' : '' %>>moderate</option>
+                <option value="high" <%= user.activities_level == 'high' ? 'selected' : '' %>>high</option>
+                <option value="extreme" <%= user.activities_level == 'extreme' ? 'selected' : '' %>>extreme</option>
+            </select>
+
+            <br><br><label>Goal</label>
+            <select name="goal" id="">
+                <option value="reduction" <%= user.goal == 'reduction' ? 'selected' : '' %> >reduction</option>
+                <option value="maintain" <%= user.goal == 'maintain' ? 'selected' : '' %> >maintain</option>
+                <option value="gain" <%= user.goal == 'gain' ? 'selected' : '' %> >gain</option>
+            </select>
+
+            <br><br><input type="submit" value="Update">
+        </form>
+    </div>
+    <br>
+    <div>
+        <form action="/dashboard/addProgram/<%= user.id %>" method="post">
+            <label>Add New Workout Program</label>
+            <select name="WorkoutId" id="">
+                <% for( let i = 0; i < workout.length; i++ ) { %>
+                    <option value="<%= workout[i].id %>"><%= workout[i].name %></option>
+                <% } %>
+            </select>
+            <br><br><input type="submit" value="Add Program">
+        </form>
+    </div>
+    <div>
+        <h3>Delete weight history</h3>
+        <table>
+            <tr>
+                <th>
+                    Weight
+                </th>
+                <th>
+                    Time Created
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <% for( let i = 0; i < user.Weights.length; i++ ) { %>
+                <tr>
+                    <td>
+                        <%= user.Weights[i].weight %> 
+                    </td>
+                    <td>
+                        <%= user.Weights[i].createdAt.toDateString() %>
+                    </td>
+                    <td>
+                        <% if (i == 0) { %>
+                             Current weight, cannot delete
+                        <% } else { %>
+                            <a href="/dashboard/delete/<%= user.id %>/<%= user.Weights[i].id %>">Delete</a>
+                        <% } %>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</body>
+</html>
