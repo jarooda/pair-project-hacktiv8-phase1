@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 
 class Controller {
     static home(req, res) {
-        res.render('home')
+        Workout.findAll()
+            .then(data => res.render('home', {data}))
+            .catch(err => res.send(err.message))
     }
 
     static register(req, res) {

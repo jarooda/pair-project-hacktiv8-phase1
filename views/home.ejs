@@ -9,5 +9,11 @@
     <h1>Welcome to Jatomo Fitness Club</h1>
     <a href="/login">Login</a>
     <a href="/register">Register</a>
+
+    <h1>Our Programs</h1>
+    <% for( let i = 0; i < data.length; i++ ) { %>
+        <h3><%= data[i].name %></h3>
+        <img width="300px" height="auto" src="<%= data[i].picture %>" alt="">
+    <% } %>
 </body>
 </html>
