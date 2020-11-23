@@ -1,6 +1,9 @@
 # pair-project-hacktiv8-phase1
-
+---
+Demo : https://dry-ridge-51993.herokuapp.com/
+---
 # Step By Step Pair Project Fitness Web App
+---
 
 > ## Buat Model
 
@@ -44,6 +47,7 @@
 | GET     | /edit/:id    | Menampilkan form edit User, dan bisa delete history **Weight** disini (history **weight** diurutkan dari yang paling akhir diatas, weight paling atas tidak bisa di delete) |
 | POST    | /edit/:id    | Edit User kemudian Redirect ke **dashboard** |
 | GET     | /delete/:id    | Delete history kemudian Redirect ke **/edit/:id** |
-
-> ## Setelah selesai semua, tambahkan validasi
-> ## Deploy di heroku
+---
+> # Setelah selesai semua, tambahkan validasi
+---
+> # Deploy di heroku
